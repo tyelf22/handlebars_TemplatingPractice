@@ -1,14 +1,12 @@
-<h1>Welcome</h1>
-{{content}}
-
-<ul>
-{{#each people}}
-    <li>{{this}}</li>
+<div class="flexCards">
+{{#each hpObj}}
+    <div class="card">
+    <img src="{{this.image}}" class="card-media" />
+    <div class="card-details">
+        <h2 class="card-head">{{this.name}}</h2>
+        <p>{{this.house}}</p>
+        <a href="/{{this.id}}" class="card-action-button">Details</a>
+    </div>
+    </div>
 {{/each}}
-</ul>
-
-
-{{#each peopleObj}}
-    <li>{{this.firstname}}</li>
-{{/each}}
-</ul>
+</div>

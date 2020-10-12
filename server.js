@@ -5,30 +5,29 @@ const exphbs = require('express-handlebars');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+let jsonData = require('./hpCharacters.json')
+
 app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-let people = ['John', 'Sarah', 'Paul']
+app.use(express.static('public'));
 
-let peopleObj = [
-    {
-        firstname: 'Peter',
-        lastname: 'Johnson'
-    },
-    {
-        firstname: 'Bob',
-        lastname: 'Doe'
-    }
-]
+let hpObj = jsonData
 
+//Set handlebar routes
 app.get('/', (req, res) => {
     res.render('home', {
-        content: 'This is new content',
-        people: people,
-        peopleObj: peopleObj
+        hpObj: hpObj
     });
 })
+
+app.get('/:id', (req, res) => {
+    res.render('character', {
+        character: hpObj[req.params.id]
+    });
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
